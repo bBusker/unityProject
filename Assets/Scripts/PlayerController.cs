@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour {
         if (other.gameObject.CompareTag("Pickup"))
         {
             other.gameObject.SetActive(false);
-            Instantiate(clone, transform.position, Quaternion.identity);
+            Instantiate(clone);//, transform.position, Quaternion.identity);
         }
     }
 

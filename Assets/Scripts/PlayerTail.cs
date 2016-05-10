@@ -9,7 +9,7 @@ public class PlayerTail : MonoBehaviour {
     private Vector3 prevPos;
     private Vector3 prevprevPos;
 
-	// Use this for initialization
+     // Use this for initialization
 	void Start () {
         prevPos = player.transform.position;
 	}
@@ -17,7 +17,7 @@ public class PlayerTail : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate()
     {
-        if((player.transform.position - transform.position).magnitude > 5F)
+        if ((player.transform.position - transform.position).magnitude > 3.0F)
         {
             prevprevPos = transform.position;
             transform.position = prevPos;
