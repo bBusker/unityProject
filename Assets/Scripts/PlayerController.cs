@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour {
 
     public float speed;
     public float angaccel;
-    public GameObject clone;
+    private PlayerTail pTail;
 
     private Rigidbody2D rb2d;
 
@@ -30,14 +30,5 @@ public class PlayerController : MonoBehaviour {
         transform.Rotate(new Vector3(0, 0, 70) * Time.deltaTime);
     }*/
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Pickup"))
-        {
-            other.gameObject.SetActive(false);
-            Instantiate(clone, transform.position, Quaternion.identity);
-        }
-    }
-
-
+    
 }
