@@ -8,7 +8,6 @@ public class PlayerTail : MonoBehaviour {
     public GameObject clone;
     private Node current = new Node();
     private Vector3 storedPos;
-    private Transform t;
 
 
     // Use this for initialization
@@ -20,7 +19,7 @@ public class PlayerTail : MonoBehaviour {
     // Update is called once per frame
     public void Update()
     {
-        if ((transform.position - transform.position).magnitude > 3F)
+        if ((TailList.start.tail.transform.position - transform.position).magnitude > 3F)
         {
             current = TailList.start;
             storedPos = transform.position;
@@ -39,8 +38,7 @@ public class PlayerTail : MonoBehaviour {
         if (other.gameObject.CompareTag("Pickup"))
         {
             other.gameObject.SetActive(false);
-            t = Instantiate(clone, transform.position, Quaternion.identity) as Transform;
-            LL_Add(transform.position, t.gameObject, TailList);
+            LL_Add(transform.position, Instantiate(clone, transform.position, Quaternion.identity) as GameObject, TailList);
         }
     }
 
