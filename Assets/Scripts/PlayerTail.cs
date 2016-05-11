@@ -17,7 +17,7 @@ public class PlayerTail : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate()
     {
-        if((player.transform.position - transform.position).magnitude > 5F)
+        if((player.transform.position - transform.position).magnitude > 3F)
         {
             prevprevPos = transform.position;
             transform.position = prevPos;
