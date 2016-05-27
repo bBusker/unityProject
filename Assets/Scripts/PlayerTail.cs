@@ -8,6 +8,7 @@ public class PlayerTail : MonoBehaviour {
     public GameObject clone;
     private Node currentNode;
     private Vector3 storedPos;
+    private Quaternion storedRot;
 
 
     // Use this for initialization
@@ -19,16 +20,21 @@ public class PlayerTail : MonoBehaviour {
     // Update is called once per frame
     public void Update()
     {
-        if ((TailList.start.tail.transform.position - transform.position).magnitude > 1.5F)
+        if ((TailList.start.tail.transform.position - transform.position).magnitude > 2F)
         {
             currentNode = TailList.start;
             storedPos = transform.position;
+            storedRot = transform.rotation;
             currentNode.nextPos = storedPos;
+            currentNode.nextRot = storedRot;
             while (currentNode != null)
             {
                 currentNode.tail.transform.position = currentNode.nextPos;
                 currentNode.nextPos = storedPos;
                 storedPos = currentNode.tail.transform.position;
+                currentNode.tail.transform.rotation = currentNode.nextRot;
+                currentNode.nextRot = storedRot;
+                storedRot = currentNode.tail.transform.rotation;
                 currentNode = currentNode.next;
             }
         }
@@ -39,7 +45,20 @@ public class PlayerTail : MonoBehaviour {
         if (other.gameObject.CompareTag("Pickup"))
         {
             other.gameObject.SetActive(false);
-            LL_Add(TailList, Instantiate(clone, transform.position, Quaternion.identity) as GameObject, transform.position);
+            Quaternion rotation;
+            Vector3 position;
+            if (TailList.start == null)
+            {
+                rotation = transform.rotation;
+                position = transform.position - transform.right;
+            }
+            else
+            {
+                rotation = TailList.end.tail.transform.rotation;
+                position = TailList.end.tail.transform.position - TailList.end.tail.transform.right;
+            }
+
+            LL_Add(TailList, Instantiate(clone, position, rotation) as GameObject, transform.position, rotation);
         }
     }
 
@@ -49,7 +68,7 @@ public class PlayerTail : MonoBehaviour {
         public Vector3 nextPos;
         public GameObject tail;
         public Node next;
-        public Vector3 rotation;
+        public Quaternion nextRot;
     }
     
     public class LinkedList
@@ -58,11 +77,12 @@ public class PlayerTail : MonoBehaviour {
         public Node end;
     }
 
-    public void LL_Add(LinkedList LL, GameObject newTail, Vector3 nextPos)
+    public void LL_Add(LinkedList LL, GameObject newTail, Vector3 nextPos, Quaternion rotation)
     {
         Node toAdd = new Node();
         toAdd.nextPos = nextPos;
         toAdd.tail = newTail;
+        toAdd.nextRot = rotation;
         if(LL.start == null)
         {
             LL.start = toAdd;
