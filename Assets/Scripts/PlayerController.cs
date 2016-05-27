@@ -6,11 +6,13 @@ public class PlayerController : MonoBehaviour {
 
     public float speed;
     public float angaccel;
+
     public int foodCount;
     public int scoreCount;
     public Text score;
     public GameObject clone;
     public Collider2D food;
+
 
     private Rigidbody2D rb2d;
 
@@ -38,6 +40,7 @@ public class PlayerController : MonoBehaviour {
     }
 
 
+
     void OnTriggerEnter2D(Collider2D food)
     {
         if (food.gameObject.CompareTag("Pickup"))
@@ -60,4 +63,5 @@ public class PlayerController : MonoBehaviour {
     {
         score.text = "SCORE: " + scoreCount.ToString();
     }
+
 }

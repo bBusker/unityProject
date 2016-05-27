@@ -4,25 +4,93 @@ using System;
 
 public class PlayerTail : MonoBehaviour {
 
-    public GameObject player;
-    public GameObject playertail2;
-    private Vector3 prevPos;
-    private Vector3 prevprevPos;
 
-     // Use this for initialization
-	void Start () {
-        prevPos = player.transform.position;
+    private LinkedList TailList = new LinkedList();
+    public GameObject clone;
+    private Node currentNode;
+    private Vector3 storedPos;
+    private Quaternion storedRot;
+
+
+    // Use this for initialization
+	public void Start () {
+        TailList.start = null;
+        TailList.end = null;
 	}
 
     // Update is called once per frame
-    void FixedUpdate()
+    public void Update()
     {
-        if ((player.transform.position - transform.position).magnitude > 3.0F)
+        if ((TailList.start.tail.transform.position - transform.position).magnitude > 2F)
         {
-            prevprevPos = transform.position;
-            transform.position = prevPos;
-            playertail2.transform.position = prevprevPos;
-            prevPos = player.transform.position;
+            currentNode = TailList.start;
+            storedPos = transform.position;
+            storedRot = transform.rotation;
+            currentNode.nextPos = storedPos;
+            currentNode.nextRot = storedRot;
+            while (currentNode != null)
+            {
+                currentNode.tail.transform.position = currentNode.nextPos;
+                currentNode.nextPos = storedPos;
+                storedPos = currentNode.tail.transform.position;
+                currentNode.tail.transform.rotation = currentNode.nextRot;
+                currentNode.nextRot = storedRot;
+                storedRot = currentNode.tail.transform.rotation;
+                currentNode = currentNode.next;
+            }
         }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Pickup"))
+        {
+            other.gameObject.SetActive(false);
+            Quaternion rotation;
+            Vector3 position;
+            if (TailList.start == null)
+            {
+                rotation = transform.rotation;
+                position = transform.position - transform.right;
+            }
+            else
+            {
+                rotation = TailList.end.tail.transform.rotation;
+                position = TailList.end.tail.transform.position - TailList.end.tail.transform.right;
+            }
+
+            LL_Add(TailList, Instantiate(clone, position, rotation) as GameObject, transform.position, rotation);
+        }
+    }
+
+    //Linked List
+    public class Node
+    {
+        public Vector3 nextPos;
+        public GameObject tail;
+        public Node next;
+        public Quaternion nextRot;
+    }
+    
+    public class LinkedList
+    {
+        public Node start;
+        public Node end;
+    }
+
+    public void LL_Add(LinkedList LL, GameObject newTail, Vector3 nextPos, Quaternion rotation)
+    {
+        Node toAdd = new Node();
+        toAdd.nextPos = nextPos;
+        toAdd.tail = newTail;
+        toAdd.nextRot = rotation;
+        if(LL.start == null)
+        {
+            LL.start = toAdd;
+            LL.end = toAdd;
+            return;
+        }
+        LL.end.next = toAdd;
+        LL.end = toAdd;
     }
 }
