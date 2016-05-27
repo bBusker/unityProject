@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour {
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
         Vector2 movement = new Vector2(speed*moveVertical, 0);
-        float torque = angaccel * moveHorizontal;
+        float torque = -1 * angaccel * moveHorizontal;
         rb2d.AddRelativeForce(movement);
         rb2d.AddTorque(torque);
     }
