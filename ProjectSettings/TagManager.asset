@@ -45,6 +45,9 @@ TagManager:
   - name: Background
     uniqueID: 2422125885
     locked: 0
+  - name: Tail
+    uniqueID: 773007379
+    locked: 0
   - name: Player
     uniqueID: 2898735765
     locked: 0
