@@ -4,6 +4,7 @@ using System;
 
 public class PlayerTail : MonoBehaviour {
 
+
     private LinkedList TailList = new LinkedList();
     public GameObject clone;
     private Node currentNode;
