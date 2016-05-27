@@ -21,7 +21,7 @@ public class PlayerTail : MonoBehaviour {
     // Update is called once per frame
     public void Update()
     {
-        if ((TailList.start.tail.transform.position - transform.position).magnitude > 2F)
+        if ((TailList.start.tail.transform.position - transform.position).magnitude > 1F)
         {
             currentNode = TailList.start;
             storedPos = transform.position;
@@ -48,18 +48,21 @@ public class PlayerTail : MonoBehaviour {
             other.gameObject.SetActive(false);
             Quaternion rotation;
             Vector3 position;
+            Vector3 position2;
             if (TailList.start == null)
             {
                 rotation = transform.rotation;
                 position = transform.position - transform.right;
+                position2 = transform.position;
             }
             else
             {
                 rotation = TailList.end.tail.transform.rotation;
                 position = TailList.end.tail.transform.position - TailList.end.tail.transform.right;
+                position2 = TailList.end.tail.transform.position;
             }
 
-            LL_Add(TailList, Instantiate(clone, position, rotation) as GameObject, transform.position, rotation);
+            LL_Add(TailList, Instantiate(clone, position, rotation) as GameObject, position2, rotation);
         }
     }
 
