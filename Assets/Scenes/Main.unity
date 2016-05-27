@@ -156,6 +156,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 11448808, guid: 34171fe17d13d754eaa4f3546981c138, type: 2}
+      propertyPath: foodPickup
+      value: 
+      objectReference: {fileID: 119086, guid: 7cb3ff3d4e8f15642b049c49204fc0cd, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 34171fe17d13d754eaa4f3546981c138, type: 2}
   m_IsPrefabParent: 0
