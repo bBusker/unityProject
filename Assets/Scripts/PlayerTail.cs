@@ -6,7 +6,7 @@ public class PlayerTail : MonoBehaviour {
 
     private LinkedList TailList = new LinkedList();
     public GameObject clone;
-    private Node current = new Node();
+    private Node currentNode;
     private Vector3 storedPos;
 
 
@@ -19,16 +19,17 @@ public class PlayerTail : MonoBehaviour {
     // Update is called once per frame
     public void Update()
     {
-        if ((TailList.start.tail.transform.position - transform.position).magnitude > 3F)
+        if ((TailList.start.tail.transform.position - transform.position).magnitude > 1.5F)
         {
-            current = TailList.start;
+            currentNode = TailList.start;
             storedPos = transform.position;
-            while (current != null)
+            currentNode.nextPos = storedPos;
+            while (currentNode != null)
             {
-                current.tail.transform.position = current.nextPos;
-                current.nextPos = storedPos;
-                storedPos = current.tail.transform.position;
-                current = current.next;
+                currentNode.tail.transform.position = currentNode.nextPos;
+                currentNode.nextPos = storedPos;
+                storedPos = currentNode.tail.transform.position;
+                currentNode = currentNode.next;
             }
         }
     }
@@ -38,7 +39,7 @@ public class PlayerTail : MonoBehaviour {
         if (other.gameObject.CompareTag("Pickup"))
         {
             other.gameObject.SetActive(false);
-            LL_Add(transform.position, Instantiate(clone, transform.position, Quaternion.identity) as GameObject, TailList);
+            LL_Add(TailList, Instantiate(clone, transform.position, Quaternion.identity) as GameObject, transform.position);
         }
     }
 
@@ -48,6 +49,7 @@ public class PlayerTail : MonoBehaviour {
         public Vector3 nextPos;
         public GameObject tail;
         public Node next;
+        public Vector3 rotation;
     }
     
     public class LinkedList
@@ -56,7 +58,7 @@ public class PlayerTail : MonoBehaviour {
         public Node end;
     }
 
-    public void LL_Add(Vector3 nextPos, GameObject newTail, LinkedList LL)
+    public void LL_Add(LinkedList LL, GameObject newTail, Vector3 nextPos)
     {
         Node toAdd = new Node();
         toAdd.nextPos = nextPos;
