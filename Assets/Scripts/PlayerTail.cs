@@ -6,7 +6,7 @@ public class PlayerTail : MonoBehaviour {
 
 
     private LinkedList TailList = new LinkedList();
-    public GameObject clone;
+    public GameObject Tail;
     private Node currentNode;
     private Vector3 storedPos;
     private Quaternion storedRot;
@@ -62,7 +62,7 @@ public class PlayerTail : MonoBehaviour {
                 position2 = TailList.end.tail.transform.position;
             }
 
-            LL_Add(TailList, Instantiate(clone, position, rotation) as GameObject, position2, rotation);
+            LL_Add(TailList, Instantiate(Tail, position, rotation) as GameObject, position2, rotation);
         }
     }
 
