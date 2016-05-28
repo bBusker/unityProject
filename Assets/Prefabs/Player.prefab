@@ -11,8 +11,9 @@ GameObject:
   - 212: {fileID: 21248090}
   - 114: {fileID: 11448808}
   - 114: {fileID: 11447126}
+  - 114: {fileID: 11462214}
   - 50: {fileID: 5090014}
-  - 58: {fileID: 5861154}
+  - 61: {fileID: 6199610}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -49,8 +50,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &5861154
-CircleCollider2D:
+--- !u!61 &6199610
+BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -62,7 +63,7 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 2.2049308
+  m_Size: {x: 5.34, y: 5.36}
 --- !u!114 &11447126
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -74,7 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: accb712570e08824b8fdc19192c269b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clone: {fileID: 124242, guid: 11cd77e7a20555d4baae2893f6665599, type: 2}
+  Tail: {fileID: 0}
 --- !u!114 &11448808
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -88,6 +89,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 100
   angaccel: 500
+--- !u!114 &11462214
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 177502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e876cbfac5e902b4aaac7dc016016d3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreCount: 0
+  score: {fileID: 0}
+  foodPickup: {fileID: 0}
 --- !u!212 &21248090
 SpriteRenderer:
   m_ObjectHideFlags: 1
