@@ -14,13 +14,19 @@ public class PlayerController : MonoBehaviour {
         rb2d = GetComponent<Rigidbody2D>();
     }
 
+    /*void FixedUpdate()
+    {
+        float horizAxis = Input.GetAxis("Horizontal");
+        float torque = -1 * angaccel * horizAxis;               //Moving forward with AddRelativeForce
+        rb2d.AddTorque(torque);
+        rb2d.AddRelativeForce(new Vector2(speed, 0));
+    }*/
+
     void FixedUpdate()
     {
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
-        Vector2 movement = new Vector2(speed*moveVertical, 0);
-        float torque = -1 * angaccel * moveHorizontal;
-        rb2d.AddRelativeForce(movement);
+        float horizAxis = Input.GetAxis("Horizontal");
+        float torque = -1 * angaccel * horizAxis;
         rb2d.AddTorque(torque);
+        rb2d.MovePosition(rb2d.position + (speed * (Vector2)rb2d.transform.right) * Time.fixedDeltaTime);
     }
 }

@@ -7,6 +7,7 @@ public class PlayerTail : MonoBehaviour {
 
     private LinkedList TailList = new LinkedList();
     public GameObject Tail;
+    public float updateDist;
     private Node currentNode;
     private Vector3 storedPos;
     private Quaternion storedRot;
@@ -21,7 +22,7 @@ public class PlayerTail : MonoBehaviour {
     // Update is called once per frame
     public void Update()
     {
-        if ((TailList.start.tail.transform.position - transform.position).magnitude > 1F)
+        if ((TailList.start.tail.transform.position - transform.position).magnitude > updateDist)
         {
             currentNode = TailList.start;
             storedPos = transform.position;
@@ -52,13 +53,13 @@ public class PlayerTail : MonoBehaviour {
             if (TailList.start == null)
             {
                 rotation = transform.rotation;
-                position = transform.position - transform.right;
+                position = transform.position - transform.right * updateDist;
                 position2 = transform.position;
             }
             else
             {
                 rotation = TailList.end.tail.transform.rotation;
-                position = TailList.end.tail.transform.position - TailList.end.tail.transform.right;
+                position = TailList.end.tail.transform.position - TailList.end.tail.transform.right * updateDist;
                 position2 = TailList.end.tail.transform.position;
             }
 
