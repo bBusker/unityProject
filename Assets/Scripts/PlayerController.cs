@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour {
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        rb2d.isKinematic = true;
     }
 
     /*void FixedUpdate()
@@ -22,11 +23,18 @@ public class PlayerController : MonoBehaviour {
         rb2d.AddRelativeForce(new Vector2(speed, 0));
     }*/
 
-    void FixedUpdate()
+    /*void FixedUpdate()
     {
         float horizAxis = Input.GetAxis("Horizontal");
-        float torque = -1 * angaccel * horizAxis;
+        float torque = -1 * angaccel * horizAxis;               //Moving forward with MovePosition
         rb2d.AddTorque(torque);
         rb2d.MovePosition(rb2d.position + (speed * (Vector2)rb2d.transform.right) * Time.fixedDeltaTime);
+    }*/
+
+    void Update()
+    {
+        float horizAxis = Input.GetAxis("Horizontal");          //Moving and rotation, with the snake as a kinematic object
+        rb2d.transform.Rotate(0, 0, angaccel * horizAxis * Time.deltaTime);
+        rb2d.transform.position = transform.position + transform.right * Time.deltaTime * speed;
     }
 }
