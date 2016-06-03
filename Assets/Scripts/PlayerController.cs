@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour {
     void Update()
     {
         float horizAxis = Input.GetAxis("Horizontal");          //Moving and rotation, with the snake as a kinematic object
-        rb2d.transform.Rotate(0, 0, angaccel * horizAxis * Time.deltaTime);
+        rb2d.transform.Rotate(0, 0, -1 * angaccel * horizAxis * Time.deltaTime);
         rb2d.transform.position = transform.position + transform.right * Time.deltaTime * speed;
     }
 }
