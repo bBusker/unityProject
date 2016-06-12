@@ -194,7 +194,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11448808, guid: 34171fe17d13d754eaa4f3546981c138, type: 2}
       propertyPath: angaccel
-      value: 250
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5090014, guid: 34171fe17d13d754eaa4f3546981c138, type: 2}
       propertyPath: m_AngularDrag

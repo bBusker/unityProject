@@ -15,13 +15,13 @@ public class PlayerController : MonoBehaviour {
         rb2d.isKinematic = false;
     }
 
-    /*void FixedUpdate()
+    void FixedUpdate()
     {
         float horizAxis = Input.GetAxis("Horizontal");
         float torque = -1 * angaccel * horizAxis;               //Moving forward with AddRelativeForce
         rb2d.AddTorque(torque);
         rb2d.AddRelativeForce(new Vector2(speed, 0));
-    }*/
+    }
 
     /*void FixedUpdate()
     {
@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour {
         rb2d.transform.position = transform.position + transform.right * Time.deltaTime * speed;
     }*/
 
-    void FixedUpdate()
+    /*void FixedUpdate()
     {
         float xAxis = Input.acceleration.x;          //Mobile device accelerometer movement
         float yAxis = Input.acceleration.y;
@@ -47,5 +47,5 @@ public class PlayerController : MonoBehaviour {
         rb2d.transform.rotation = Quaternion.AngleAxis(movementRotation, Vector3.forward);
         rb2d.AddForce(movement * speed);
         rb2d.AddRelativeForce(new Vector2(speed/3, 0));
-    }
+    }*/
 }
