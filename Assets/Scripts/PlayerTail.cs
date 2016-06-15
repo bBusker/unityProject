@@ -5,7 +5,7 @@ using System;
 public class PlayerTail : MonoBehaviour {
 
 
-    private LinkedList TailList = new LinkedList();
+    public LinkedList TailList = new LinkedList();
     public GameObject Tail;
     public float updateDist;
     private Node currentNode;
@@ -87,7 +87,9 @@ public class PlayerTail : MonoBehaviour {
         Node toAdd = new Node();
         toAdd.nextPos = nextPos;
         toAdd.tail = newTail;
+        toAdd.next = null;
         toAdd.nextRot = rotation;
+
         if(LL.start == null)
         {
             LL.start = toAdd;
@@ -96,5 +98,24 @@ public class PlayerTail : MonoBehaviour {
         }
         LL.end.next = toAdd;
         LL.end = toAdd;
+    }
+
+    public bool checkPkupLocation(LinkedList LL, Vector3 position)
+    {
+        if(Vector3.Magnitude(transform.position - position) <= 6)
+        {
+            return true;
+        }
+        bool flag = false;
+        Node current = LL.start;
+        while(current != null)
+        {
+            if(Vector3.Magnitude(current.tail.transform.position - position) <= 4F)
+            {
+                return true;
+            }
+            current = current.next;
+        }
+        return flag;
     }
 }
