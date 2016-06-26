@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour {
 
     private Rigidbody2D rb2d;
 
+    public GameObject Text;
+   
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
@@ -21,6 +23,18 @@ public class PlayerController : MonoBehaviour {
         float torque = -1 * angaccel * horizAxis;               //Moving forward with AddRelativeForce
         rb2d.AddTorque(torque);
         rb2d.AddRelativeForce(new Vector2(speed, 0));
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.gameObject.tag == "Collision")
+        {
+            Debug.Log("triggered");
+            Text.SetActive(true);
+            Time.timeScale = 0;
+
+        }
+
     }
 
     /*void FixedUpdate()
