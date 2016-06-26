@@ -8,6 +8,8 @@ public class PlayerTail : MonoBehaviour {
     public LinkedList TailList = new LinkedList();
     public GameObject Tail;
     public float updateDist;
+    private Renderer rend;
+    private bool updateRend;
     private Node currentNode;
     private Vector3 storedPos;
     private Quaternion storedRot;
@@ -37,6 +39,12 @@ public class PlayerTail : MonoBehaviour {
             storedRot = currentNode.tail.transform.rotation;
             currentNode = currentNode.next;
         }
+        if(updateRend == true)
+        {
+            rend = TailList.end.tail.GetComponent<Renderer>();
+            rend.enabled = false;
+            rend.enabled = true;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -47,20 +55,25 @@ public class PlayerTail : MonoBehaviour {
             Quaternion rotation;
             Vector3 position;
             Vector3 position2;
-            if (TailList.start == null)
+            int i;
+            for (i = 0; i < 3; i++)
             {
-                rotation = transform.rotation;
-                position = transform.position - transform.right * updateDist;
-                position2 = transform.position;
-            }
-            else
-            {
-                rotation = TailList.end.tail.transform.rotation;
-                position = TailList.end.tail.transform.position - TailList.end.tail.transform.right * updateDist;
-                position2 = TailList.end.tail.transform.position;
-            }
+                if (TailList.start == null)
+                {
+                    rotation = transform.rotation;
+                    position = transform.position - transform.right * updateDist;
+                    position2 = transform.position;
+                }
+                else
+                {
+                    rotation = TailList.end.tail.transform.rotation;
+                    position = TailList.end.tail.transform.position - TailList.end.tail.transform.right * updateDist;
+                    position2 = TailList.end.tail.transform.position;
+                }
 
-            LL_Add(TailList, Instantiate(Tail, position, rotation) as GameObject, position2, rotation);
+                LL_Add(TailList, Instantiate(Tail, position, rotation) as GameObject, position2, rotation);
+            }
+            updateRend = true;
         }
     }
 
