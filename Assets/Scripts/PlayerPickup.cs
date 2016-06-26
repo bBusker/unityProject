@@ -26,7 +26,6 @@ public class PlayerPickup : MonoBehaviour {
             while (playerTail.checkPkupLocation(playerTail.TailList, location) == true)
             {
                 location = new Vector2(Random.Range(-10.0F, 10.0F), Random.Range(-10.0F, 10.0F));
-                Debug.Log("new location trigger");
             }
             Instantiate(foodPickup, location, Quaternion.identity);
             food.gameObject.SetActive(false);
