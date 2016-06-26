@@ -20,25 +20,22 @@ public class PlayerTail : MonoBehaviour {
 	}
 
     // Update is called once per frame
-    public void Update()
+    public void FixedUpdate()
     {
-        if ((TailList.start.tail.transform.position - transform.position).magnitude > updateDist)
+        currentNode = TailList.start;
+        storedPos = transform.position;
+        storedRot = transform.rotation;
+        currentNode.nextPos = storedPos;
+        currentNode.nextRot = storedRot;
+        while (currentNode != null)
         {
-            currentNode = TailList.start;
-            storedPos = transform.position;
-            storedRot = transform.rotation;
+            currentNode.tail.transform.position = currentNode.nextPos;
             currentNode.nextPos = storedPos;
+            storedPos = currentNode.tail.transform.position;
+            currentNode.tail.transform.rotation = currentNode.nextRot;
             currentNode.nextRot = storedRot;
-            while (currentNode != null)
-            {
-                currentNode.tail.transform.position = currentNode.nextPos;
-                currentNode.nextPos = storedPos;
-                storedPos = currentNode.tail.transform.position;
-                currentNode.tail.transform.rotation = currentNode.nextRot;
-                currentNode.nextRot = storedRot;
-                storedRot = currentNode.tail.transform.rotation;
-                currentNode = currentNode.next;
-            }
+            storedRot = currentNode.tail.transform.rotation;
+            currentNode = currentNode.next;
         }
     }
 
