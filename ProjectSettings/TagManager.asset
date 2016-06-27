@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Collision
   - Pickup
+  - Tail
   layers:
   - Default
   - TransparentFX
