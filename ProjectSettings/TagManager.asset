@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Collision
   - Pickup
+  - ShowOnPause
   layers:
   - Default
   - TransparentFX
