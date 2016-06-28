@@ -6,7 +6,8 @@ public class PlayerTail : MonoBehaviour {
 
 
     public LinkedList TailList = new LinkedList();
-    public GameObject Tail;
+    public GameObject Tail_WithTrigger;
+    public GameObject Tail_WithoutTrigger;
     public float updateDist;
     public int tailGrowth = 3;
     private int tailAddCount;
@@ -16,9 +17,11 @@ public class PlayerTail : MonoBehaviour {
 
 
     // Use this for initialization
-	public void Start () {
+	public void Start ()
+    {
         TailList.start = null;
         TailList.end = null;
+        TailList.size = 0;
 	}
 
     // Update is called once per frame
@@ -43,7 +46,7 @@ public class PlayerTail : MonoBehaviour {
         {
             addTail();
             tailAddCount--;
-        }
+        }        
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -66,15 +69,22 @@ public class PlayerTail : MonoBehaviour {
             rotation = transform.rotation;
             position = transform.position - transform.right * updateDist;
             position2 = transform.position;
+            LL_Add(TailList, Instantiate(Tail_WithoutTrigger, position, rotation) as GameObject, position2, rotation);
+        }
+        else if (TailList.size <= 15)
+        {
+            rotation = TailList.end.tail.transform.rotation;
+            position = TailList.end.tail.transform.position - TailList.end.tail.transform.right * updateDist;
+            position2 = TailList.end.tail.transform.position;
+            LL_Add(TailList, Instantiate(Tail_WithoutTrigger, position, rotation) as GameObject, position2, rotation);
         }
         else
         {
             rotation = TailList.end.tail.transform.rotation;
             position = TailList.end.tail.transform.position - TailList.end.tail.transform.right * updateDist;
             position2 = TailList.end.tail.transform.position;
+            LL_Add(TailList, Instantiate(Tail_WithTrigger, position, rotation) as GameObject, position2, rotation);
         }
-
-        LL_Add(TailList, Instantiate(Tail, position, rotation) as GameObject, position2, rotation);
     }
 
     //Linked List
@@ -90,6 +100,7 @@ public class PlayerTail : MonoBehaviour {
     {
         public Node start;
         public Node end;
+        public int size;
     }
 
     public void LL_Add(LinkedList LL, GameObject newTail, Vector3 nextPos, Quaternion rotation)
@@ -108,6 +119,7 @@ public class PlayerTail : MonoBehaviour {
         }
         LL.end.next = toAdd;
         LL.end = toAdd;
+        LL.size++;
     }
 
     public bool checkPkupLocation(LinkedList LL, Vector3 position)

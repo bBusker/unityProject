@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour {
 
     private Rigidbody2D rb2d;
 
-    public GameObject Text;
+    public GameObject GameOverText;
    
     void Start()
     {
@@ -27,12 +27,11 @@ public class PlayerController : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.tag == "Collision")
+        if(other.gameObject.CompareTag("Collision"))
         {
             Debug.Log("triggered");
-            Text.SetActive(true);
+            GameOverText.SetActive(true);
             Time.timeScale = 0;
-
         }
 
     }
