@@ -1241,7 +1241,6 @@ GameObject:
   - 92: {fileID: 1725713637}
   - 124: {fileID: 1725713636}
   - 81: {fileID: 1725713635}
-  - 114: {fileID: 1725713640}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1317,17 +1316,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &1725713640
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1725713634}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94f575bac5cb27749b9c9c0cea413443, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1785080563
 Prefab:
   m_ObjectHideFlags: 0
@@ -1452,6 +1440,7 @@ GameObject:
   - 61: {fileID: 1975400817}
   - 61: {fileID: 1975400816}
   - 61: {fileID: 1975400815}
+  - 114: {fileID: 1975400821}
   m_Layer: 0
   m_Name: Background
   m_TagString: Collision
@@ -1558,6 +1547,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+--- !u!114 &1975400821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1975400814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ba2997a978ce8f4189a2b7d20e33a6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2011512185 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11443094, guid: e10a8e01e41bfe44d861f9cc636e9c4c,
