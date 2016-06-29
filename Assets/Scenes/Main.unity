@@ -1825,6 +1825,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+--- !u!114 &1975400821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1975400814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ba2997a978ce8f4189a2b7d20e33a6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ResolutionControllerRatio_x: 1
+  ResolutionControllerRatio_y: 1
 --- !u!1 &2011124609
 GameObject:
   m_ObjectHideFlags: 0
@@ -1947,14 +1960,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2011124609}
-  m_GameObject: {fileID: 1975400814}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ba2997a978ce8f4189a2b7d20e33a6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ResolutionControllerRatio_x: 0
-  ResolutionControllerRatio_y: 0
 --- !u!114 &2011512185 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11443094, guid: e10a8e01e41bfe44d861f9cc636e9c4c,
