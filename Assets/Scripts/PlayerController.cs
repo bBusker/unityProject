@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour {
 
     public float speed;
     public float angaccel;
-
+    public bool gameover; 
     private Rigidbody2D rb2d;
 
     public GameObject GameOverText;
@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour {
     {
         rb2d = GetComponent<Rigidbody2D>();
         rb2d.isKinematic = false;
+        gameover = false;
     }
 
     void FixedUpdate()
@@ -31,6 +32,7 @@ public class PlayerController : MonoBehaviour {
         {
             Debug.Log("triggered");
             GameOverText.SetActive(true);
+            gameover = true;
             Time.timeScale = 0;
         }
 

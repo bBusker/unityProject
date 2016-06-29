@@ -1,26 +1,34 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PauseController : MonoBehaviour {
-    public Transform canvas; 
+public class PauseController : MonoBehaviour
+{
+    public Transform UIOverlay;
+    
+    void Start()
+    {
+        GameObject player = GameObject.Find("Player");
+        PlayerController controller = player.GetComponent<PlayerController>();
+    }
 
-	void Start () {
-	}
-	
-	void Update () {
-	    if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (canvas.gameObject.activeInHierarchy == false)
+    void Update()
+    {
+        GameObject player = GameObject.Find("Player");
+        PlayerController controller = player.GetComponent<PlayerController>();
+        if (controller.gameover == false) {
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                canvas.gameObject.SetActive(true);
-                Time.timeScale = 0;
+                if (UIOverlay.gameObject.activeInHierarchy == false)
+                {
+                    UIOverlay.gameObject.SetActive(true);
+                    Time.timeScale = 0;
+                }
+                else
+                {
+                    UIOverlay.gameObject.SetActive(false);
+                    Time.timeScale = 1;
+                }
             }
-            else
-            {
-                canvas.gameObject.SetActive(false);
-                Time.timeScale = 1;
-            }
-                    
         }
-	}
+    }
 }
