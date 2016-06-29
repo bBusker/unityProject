@@ -1520,7 +1520,6 @@ GameObject:
   - 92: {fileID: 1725713637}
   - 124: {fileID: 1725713636}
   - 81: {fileID: 1725713635}
-  - 114: {fileID: 1725713640}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1596,17 +1595,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &1725713640
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1725713634}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94f575bac5cb27749b9c9c0cea413443, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1785080563
 Prefab:
   m_ObjectHideFlags: 0
@@ -1730,6 +1718,7 @@ GameObject:
   - 61: {fileID: 1975400817}
   - 61: {fileID: 1975400816}
   - 61: {fileID: 1975400815}
+  - 114: {fileID: 1975400821}
   m_Layer: 0
   m_Name: Background
   m_TagString: Collision
@@ -1748,9 +1737,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: -26.86658, y: 0}
+  m_Offset: {x: -24.10493, y: -0.03211212}
   serializedVersion: 2
-  m_Size: {x: 3.293562, y: 31.640001}
+  m_Size: {x: 2.9082108, y: 28.749895}
 --- !u!61 &1975400816
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1762,9 +1751,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 14.17889}
+  m_Offset: {x: 0.0000038146973, y: 12.990738}
   serializedVersion: 2
-  m_Size: {x: 57.00412, y: 3.282215}
+  m_Size: {x: 51.35238, y: 2.8326378}
 --- !u!61 &1975400817
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1776,9 +1765,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: 26.866581, y: 0}
+  m_Offset: {x: 24.13705, y: 0.06422424}
   serializedVersion: 2
-  m_Size: {x: 3.293562, y: 31.640001}
+  m_Size: {x: 3.100891, y: 28.81412}
 --- !u!61 &1975400818
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1790,9 +1779,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: -14.178892}
+  m_Offset: {x: 0.032115936, y: -12.830179}
   serializedVersion: 2
-  m_Size: {x: 57.00412, y: 3.282215}
+  m_Size: {x: 51.288155, y: 3.0253181}
 --- !u!212 &1975400819
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1958,6 +1947,14 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2011124609}
+  m_GameObject: {fileID: 1975400814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ba2997a978ce8f4189a2b7d20e33a6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ResolutionControllerRatio_x: 0
+  ResolutionControllerRatio_y: 0
 --- !u!114 &2011512185 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11443094, guid: e10a8e01e41bfe44d861f9cc636e9c4c,
