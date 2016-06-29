@@ -3,6 +3,8 @@ using System.Collections;
 
 public class ResolutionController : MonoBehaviour {
 
+    public float ResolutionControllerRatio_x;
+    public float ResolutionControllerRatio_y;
     private SpriteRenderer sr;
 
     // Use this for initialization
@@ -11,11 +13,10 @@ public class ResolutionController : MonoBehaviour {
         float worldScreenHeight = Camera.main.orthographicSize * 2.0f;
         float worldScreenWidth = worldScreenHeight / Screen.height * Screen.width;
 
-        float x_scale = worldScreenWidth / sr.bounds.size.x;
-        float y_scale = worldScreenHeight / sr.bounds.size.y;
+        ResolutionControllerRatio_x = worldScreenWidth / sr.bounds.size.x;
+        ResolutionControllerRatio_y = worldScreenHeight / sr.bounds.size.y;
 
-        transform.localScale = new Vector3(x_scale, y_scale, 1);
-
+        transform.localScale = new Vector3(ResolutionControllerRatio_x, ResolutionControllerRatio_y, 1);
 	}
 	
 	// Update is called once per frame
