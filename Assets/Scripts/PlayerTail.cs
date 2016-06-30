@@ -55,7 +55,13 @@ public class PlayerTail : MonoBehaviour {
         {
             other.gameObject.SetActive(false);
             addTail();
-            tailAddCount = tailGrowth;
+            tailAddCount += tailGrowth;
+        }
+        if (other.gameObject.CompareTag("TinyPickup"))
+        {
+            other.gameObject.SetActive(false);
+            addTail();
+            tailAddCount += 1;
         }
     }
 
