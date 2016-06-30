@@ -27,12 +27,13 @@ public class PlayerTail : MonoBehaviour {
     // Update is called once per frame
     public void FixedUpdate()
     {
+        int i = 0;
         currentNode = TailList.start;
         storedPos = transform.position;
         storedRot = transform.rotation;
         currentNode.nextPos = storedPos;
         currentNode.nextRot = storedRot;
-        while (currentNode != null)
+        while (currentNode != null && i++ < 20)
         {
             currentNode.tail.transform.position = currentNode.nextPos;
             currentNode.nextPos = storedPos;
