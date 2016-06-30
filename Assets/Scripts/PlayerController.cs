@@ -6,13 +6,16 @@ public class PlayerController : MonoBehaviour {
 
     public float speed;
     public float angaccel;
-
+    public bool gameover; 
     private Rigidbody2D rb2d;
 
+    public GameObject GameOverText;
+   
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
         rb2d.isKinematic = false;
+        gameover = false;
     }
 
     void FixedUpdate()
@@ -21,6 +24,18 @@ public class PlayerController : MonoBehaviour {
         float torque = -1 * angaccel * horizAxis;               //Moving forward with AddRelativeForce
         rb2d.AddTorque(torque);
         rb2d.AddRelativeForce(new Vector2(speed, 0));
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.gameObject.CompareTag("Collision"))
+        {
+            Debug.Log("triggered");
+            GameOverText.SetActive(true);
+            gameover = true;
+            Time.timeScale = 0;
+        }
+
     }
 
     /*void FixedUpdate()
