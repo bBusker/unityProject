@@ -71,7 +71,7 @@ public class PlayerTail : MonoBehaviour {
             position2 = transform.position;
             LL_Add(TailList, Instantiate(Tail_WithoutTrigger, position, rotation) as GameObject, position2, rotation);
         }
-        else if (TailList.size <= 15)
+        else if (TailList.size <= 20)
         {
             rotation = TailList.end.tail.transform.rotation;
             position = TailList.end.tail.transform.position - TailList.end.tail.transform.right * updateDist;
