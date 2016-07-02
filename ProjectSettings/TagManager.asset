@@ -8,6 +8,8 @@ TagManager:
   - Pickup
   - ShowOnPause
   - Tail
+  - Magnet
+  - TinyPickup
   layers:
   - Default
   - TransparentFX

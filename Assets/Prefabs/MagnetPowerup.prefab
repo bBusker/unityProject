@@ -11,7 +11,7 @@ GameObject:
   - 212: {fileID: 21297010}
   - 58: {fileID: 5883112}
   m_Layer: 0
-  m_Name: MagnetPowerup 1
+  m_Name: MagnetPowerup
   m_TagString: Magnet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

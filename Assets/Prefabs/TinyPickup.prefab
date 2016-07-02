@@ -11,9 +11,10 @@ GameObject:
   - 212: {fileID: 21248456}
   - 50: {fileID: 5016148}
   - 58: {fileID: 5844914}
+  - 114: {fileID: 11431060}
   m_Layer: 0
   m_Name: TinyPickup
-  m_TagString: Pickup
+  m_TagString: TinyPickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -62,6 +63,17 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.0569782
+--- !u!114 &11431060
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 156954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b346b2ac4791b0e468479915cf2a6716, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &21248456
 SpriteRenderer:
   m_ObjectHideFlags: 1
