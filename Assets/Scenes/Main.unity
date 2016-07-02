@@ -1215,7 +1215,7 @@ Prefab:
     - target: {fileID: 11447126, guid: 34171fe17d13d754eaa4f3546981c138, type: 2}
       propertyPath: Tail
       value: 
-      objectReference: {fileID: 124242, guid: 11cd77e7a20555d4baae2893f6665599, type: 2}
+      objectReference: {fileID: 117466, guid: 4c94beb7f25e2ee40aaf27896d8fbe70, type: 2}
     - target: {fileID: 6199610, guid: 34171fe17d13d754eaa4f3546981c138, type: 2}
       propertyPath: m_Offset.x
       value: 1.6
