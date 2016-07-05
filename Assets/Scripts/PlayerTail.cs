@@ -7,8 +7,9 @@ public class PlayerTail : MonoBehaviour {
 
     public LinkedList TailList = new LinkedList();
     public GameObject Tail;
-    public float updateDist;
-    public int tailGrowth;
+    public GameObject TailEnd;
+    public float TailUpdateDistance;
+    public int TailGrowthRate;
     private int tailAddCount;
     private Node currentNode;
     private Vector3 storedPos;
@@ -33,7 +34,6 @@ public class PlayerTail : MonoBehaviour {
             addTail();
             tailAddCount--;
         }
-        Debug.Log(TailList.size);
         TailList.end.tail.tag = "Tail";
         TailList.end.tail.transform.position = transform.position;
         TailList.end.tail.transform.rotation = transform.rotation;
@@ -41,16 +41,17 @@ public class PlayerTail : MonoBehaviour {
         TailList.start.previous = TailList.end;
         TailList.end = TailList.end.previous;
         TailList.start = TailList.start.previous;
-        TailList.twenty.tail.tag = "Collision";
+        TailEnd.transform.position = TailList.end.tail.transform.position;
+        TailEnd.transform.rotation = TailList.end.tail.transform.rotation;
         TailList.twenty = TailList.twenty.previous;
+        TailList.twenty.tail.tag = "Collision";
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Pickup"))
-        {
-            other.gameObject.SetActive(false);
-            tailAddCount += tailGrowth;
+        { 
+            tailAddCount += TailGrowthRate;
         }
     }
 
@@ -61,20 +62,20 @@ public class PlayerTail : MonoBehaviour {
         if (TailList.start == null)
         {
             rotation = transform.rotation;
-            position = transform.position - transform.right * updateDist;
+            position = transform.position - transform.right * TailUpdateDistance;
             LL_Add(TailList, Instantiate(Tail, position, rotation) as GameObject);
         }
         else if (TailList.size == 19)
         {
             rotation = TailList.end.tail.transform.rotation;
-            position = TailList.end.tail.transform.position - TailList.end.tail.transform.right * updateDist;
+            position = TailList.end.tail.transform.position - TailList.end.tail.transform.right * TailUpdateDistance;
             LL_Add(TailList, Instantiate(Tail, position, rotation) as GameObject);
             TailList.twenty = TailList.end;
         }
         else
         {
             rotation = TailList.end.tail.transform.rotation;
-            position = TailList.end.tail.transform.position - TailList.end.tail.transform.right * updateDist;
+            position = TailList.end.tail.transform.position - TailList.end.tail.transform.right * TailUpdateDistance;
             LL_Add(TailList, Instantiate(Tail, position, rotation) as GameObject);
         }
     }
@@ -111,6 +112,7 @@ public class PlayerTail : MonoBehaviour {
         {
             LL.start = toAdd;
             LL.end = toAdd;
+            LL.size++;
             return;
         }
 
@@ -127,7 +129,7 @@ public class PlayerTail : MonoBehaviour {
         }
         bool flag = false;
         Node current = LL.start;
-        while(current != null)
+        while (current != LL.end)
         {
             if(Vector3.Magnitude(current.tail.transform.position - position) <= 4F)
             {

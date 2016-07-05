@@ -12,7 +12,7 @@ GameObject:
   - 50: {fileID: 5063636}
   - 58: {fileID: 5831336}
   m_Layer: 0
-  m_Name: PlayerTail_NoTrigger
+  m_Name: PlayerTail
   m_TagString: Tail
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
