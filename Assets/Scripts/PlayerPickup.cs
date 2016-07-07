@@ -7,6 +7,9 @@ public class PlayerPickup : MonoBehaviour {
     public int scoreCount;
     public Text score;
     public GameObject foodPickup;
+    public GameObject foodPickup_tiny;
+    public GameObject magnetPickup;
+    public bool MagnetPowerup_enabled;
     private float PickupRange_x;
     private float PickupRange_y;
     private GameObject Background;
@@ -23,12 +26,12 @@ public class PlayerPickup : MonoBehaviour {
         ResolutionController = Background.GetComponent<ResolutionController>();
         PickupRange_x = 20F * ResolutionController.ResolutionControllerRatio_x;
         PickupRange_y = 10F * ResolutionController.ResolutionControllerRatio_y;
+        MagnetPowerup_enabled = false;
     }
 
-    // Update is called once per frame
-    void OnTriggerEnter2D(Collider2D food)
+    void OnTriggerEnter2D(Collider2D other)
     {
-        if (food.gameObject.CompareTag("Pickup"))
+        if (other.gameObject.CompareTag("Pickup"))
         {
             Vector2 location = new Vector2(Random.Range(-PickupRange_x, PickupRange_x), Random.Range(-PickupRange_y, PickupRange_y));
             while (playerTail.checkPkupLocation(playerTail.TailList, location) == true)
@@ -37,11 +40,49 @@ public class PlayerPickup : MonoBehaviour {
                 Debug.Log("new location trigger");
             }
             Instantiate(foodPickup, location, Quaternion.identity);
-            food.gameObject.SetActive(false);
-            Destroy(food.gameObject);
+            other.gameObject.SetActive(false);
+            Destroy(other.gameObject);
+            scoreCount += 5;
+            SetCountText();
+        }
+        if (other.gameObject.CompareTag("TinyPickup"))
+        {
+            Vector2 location = new Vector2(Random.Range(-PickupRange_x, PickupRange_x), Random.Range(-PickupRange_y, PickupRange_y));
+            while (playerTail.checkPkupLocation(playerTail.TailList, location) == true)
+            {
+                location = new Vector2(Random.Range(-PickupRange_x, PickupRange_x), Random.Range(-PickupRange_y, PickupRange_y));
+                Debug.Log("new location trigger");
+            }
+            Instantiate(foodPickup_tiny, location, Quaternion.identity);
+            other.gameObject.SetActive(false);
+            Destroy(other.gameObject);
             scoreCount += 1;
             SetCountText();
         }
+        if (other.gameObject.CompareTag("Magnet"))
+        {
+            MagnetPowerup_enabled = true;
+            Invoke("DeactivateMagnet", 10F);
+            Invoke("SpawnMagnet", 15F);
+            other.gameObject.SetActive(false);
+            Destroy(other.gameObject);
+        }
+    }
+
+    void DeactivateMagnet()
+    {
+        MagnetPowerup_enabled = false;
+    }
+
+    void SpawnMagnet()
+    {
+        Vector2 location = new Vector2(Random.Range(-PickupRange_x, PickupRange_x), Random.Range(-PickupRange_y, PickupRange_y));
+        while (playerTail.checkPkupLocation(playerTail.TailList, location) == true)
+        {
+            location = new Vector2(Random.Range(-PickupRange_x, PickupRange_x), Random.Range(-PickupRange_y, PickupRange_y));
+            Debug.Log("new location trigger");
+        }
+        Instantiate(magnetPickup, location, Quaternion.identity);
     }
 
     void SetCountText()
