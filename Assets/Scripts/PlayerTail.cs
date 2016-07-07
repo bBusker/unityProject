@@ -6,10 +6,10 @@ public class PlayerTail : MonoBehaviour {
 
 
     public LinkedList TailList = new LinkedList();
-    public GameObject Tail_WithTrigger;
-    public GameObject Tail_WithoutTrigger;
-    public float updateDist;
-    public int tailGrowth = 3;
+    public GameObject Tail;
+    public GameObject TailEnd;
+    public float TailUpdateDistance;
+    public int TailGrowthRate;
     private int tailAddCount;
     private Node currentNode;
     private Vector3 storedPos;
@@ -20,48 +20,43 @@ public class PlayerTail : MonoBehaviour {
 	public void Start ()
     {
         TailList.start = null;
+        TailList.twenty = null;
         TailList.end = null;
         TailList.size = 0;
+        tailAddCount = 0;
 	}
 
     // Update is called once per frame
     public void FixedUpdate()
     {
-        currentNode = TailList.start;
-        storedPos = transform.position;
-        storedRot = transform.rotation;
-        currentNode.nextPos = storedPos;
-        currentNode.nextRot = storedRot;
-        while (currentNode != null)
-        {
-            currentNode.tail.transform.position = currentNode.nextPos;
-            currentNode.nextPos = storedPos;
-            storedPos = currentNode.tail.transform.position;
-            currentNode.tail.transform.rotation = currentNode.nextRot;
-            currentNode.nextRot = storedRot;
-            storedRot = currentNode.tail.transform.rotation;
-            currentNode = currentNode.next;
-        }
         if (tailAddCount > 0)
         {
             addTail();
             tailAddCount--;
-        }        
+        }
+        TailList.end.tail.tag = "Tail";
+        TailList.end.tail.transform.position = transform.position;
+        TailList.end.tail.transform.rotation = transform.rotation;
+        TailList.end.next = TailList.start;
+        TailList.start.previous = TailList.end;
+        TailList.end = TailList.end.previous;
+        TailList.start = TailList.start.previous;
+        TailEnd.transform.position = TailList.end.tail.transform.position - TailList.end.tail.transform.right * TailUpdateDistance;
+        TailEnd.transform.rotation = TailList.end.tail.transform.rotation;
+        TailList.twenty = TailList.twenty.previous;
+        TailList.twenty.tail.tag = "Collision";
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Pickup"))
-        {
-            other.gameObject.SetActive(false);
-            addTail();
-            tailAddCount += tailGrowth;
+        { 
+            tailAddCount += TailGrowthRate;
         }
-        if (other.gameObject.CompareTag("TinyPickup"))
+
+        else if (other.gameObject.CompareTag("TinyPickup"))
         {
-            other.gameObject.SetActive(false);
-            addTail();
-            tailAddCount += 1;
+            tailAddCount += TailGrowthRate_Tiny;
         }
     }
 
@@ -69,60 +64,63 @@ public class PlayerTail : MonoBehaviour {
     {
         Quaternion rotation;
         Vector3 position;
-        Vector3 position2;
         if (TailList.start == null)
         {
             rotation = transform.rotation;
-            position = transform.position - transform.right * updateDist;
-            position2 = transform.position;
-            LL_Add(TailList, Instantiate(Tail_WithoutTrigger, position, rotation) as GameObject, position2, rotation);
+            position = transform.position - transform.right * TailUpdateDistance;
+            LL_Add(TailList, Instantiate(Tail, position, rotation) as GameObject);
         }
-        else if (TailList.size <= 20)
+        else if (TailList.size == 19)
         {
             rotation = TailList.end.tail.transform.rotation;
-            position = TailList.end.tail.transform.position - TailList.end.tail.transform.right * updateDist;
-            position2 = TailList.end.tail.transform.position;
-            LL_Add(TailList, Instantiate(Tail_WithoutTrigger, position, rotation) as GameObject, position2, rotation);
+            position = TailList.end.tail.transform.position - TailList.end.tail.transform.right * TailUpdateDistance;
+            LL_Add(TailList, Instantiate(Tail, position, rotation) as GameObject);
+            TailList.twenty = TailList.end;
         }
         else
         {
             rotation = TailList.end.tail.transform.rotation;
-            position = TailList.end.tail.transform.position - TailList.end.tail.transform.right * updateDist;
-            position2 = TailList.end.tail.transform.position;
-            LL_Add(TailList, Instantiate(Tail_WithTrigger, position, rotation) as GameObject, position2, rotation);
+            position = TailList.end.tail.transform.position - TailList.end.tail.transform.right * TailUpdateDistance;
+            LL_Add(TailList, Instantiate(Tail, position, rotation) as GameObject);
         }
     }
 
     //Linked List
     public class Node
     {
-        public Vector3 nextPos;
         public GameObject tail;
         public Node next;
-        public Quaternion nextRot;
+        public Node previous;
     }
     
     public class LinkedList
     {
         public Node start;
+        public Node twenty;
         public Node end;
         public int size;
     }
 
-    public void LL_Add(LinkedList LL, GameObject newTail, Vector3 nextPos, Quaternion rotation)
+    public void LL_Add(LinkedList LL, GameObject newTail)
     {
         Node toAdd = new Node();
-        toAdd.nextPos = nextPos;
         toAdd.tail = newTail;
         toAdd.next = null;
-        toAdd.nextRot = rotation;
+        toAdd.previous = LL.end;
+
+        if(LL.size > 20)
+        {
+            toAdd.tail.tag = "Collision";
+        }
 
         if(LL.start == null)
         {
             LL.start = toAdd;
             LL.end = toAdd;
+            LL.size++;
             return;
         }
+
         LL.end.next = toAdd;
         LL.end = toAdd;
         LL.size++;
@@ -136,7 +134,7 @@ public class PlayerTail : MonoBehaviour {
         }
         bool flag = false;
         Node current = LL.start;
-        while(current != null)
+        while (current != LL.end)
         {
             if(Vector3.Magnitude(current.tail.transform.position - position) <= 4F)
             {
