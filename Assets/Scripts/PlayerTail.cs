@@ -10,6 +10,7 @@ public class PlayerTail : MonoBehaviour {
     public GameObject TailEnd;
     public float TailUpdateDistance;
     public int TailGrowthRate;
+    public int TailGrowthRate_Tiny;
     private int tailAddCount;
     private Node currentNode;
     private Vector3 storedPos;

@@ -1595,7 +1595,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11447126, guid: 34171fe17d13d754eaa4f3546981c138, type: 2}
       propertyPath: TailGrowthRate
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 11462214, guid: 34171fe17d13d754eaa4f3546981c138, type: 2}
       propertyPath: foodPickup_tiny
@@ -1605,6 +1605,10 @@ Prefab:
       propertyPath: magnetPickup
       value: 
       objectReference: {fileID: 177692, guid: 8acb5cc6ec7bbaa43a644fbf682cf47c, type: 2}
+    - target: {fileID: 11447126, guid: 34171fe17d13d754eaa4f3546981c138, type: 2}
+      propertyPath: TailGrowthRate_Tiny
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6199610, guid: 34171fe17d13d754eaa4f3546981c138, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 34171fe17d13d754eaa4f3546981c138, type: 2}
