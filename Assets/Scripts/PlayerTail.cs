@@ -41,7 +41,7 @@ public class PlayerTail : MonoBehaviour {
         TailList.start.previous = TailList.end;
         TailList.end = TailList.end.previous;
         TailList.start = TailList.start.previous;
-        TailEnd.transform.position = TailList.end.tail.transform.position;
+        TailEnd.transform.position = TailList.end.tail.transform.position - TailList.end.tail.transform.right * TailUpdateDistance;
         TailEnd.transform.rotation = TailList.end.tail.transform.rotation;
         TailList.twenty = TailList.twenty.previous;
         TailList.twenty.tail.tag = "Collision";
