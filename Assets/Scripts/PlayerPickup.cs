@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-using static PlayerTail;
 
 public class PlayerPickup : MonoBehaviour {
 
@@ -48,6 +47,8 @@ public class PlayerPickup : MonoBehaviour {
             case "Magnet":
                 StartCoroutine(MagnetPickup());
                 break;
+            default:
+                return;
         }
         other.gameObject.SetActive(false);
         Destroy(other.gameObject);
@@ -72,14 +73,14 @@ public class PlayerPickup : MonoBehaviour {
         Instantiate(pkup, location, Quaternion.identity);
     }
 
-    bool checkPkupLocation(LinkedList LL, Vector3 position)
+    bool checkPkupLocation(PlayerTail.LinkedList LL, Vector3 position)
     {
         if (Vector3.Magnitude(transform.position - position) <= 6)
         {
             return true;
         }
         bool flag = false;
-        Node current = LL.start;
+        PlayerTail.Node current = LL.start;
         while (current != LL.end)
         {
             if (Vector3.Magnitude(current.tail.transform.position - position) <= 4F)
