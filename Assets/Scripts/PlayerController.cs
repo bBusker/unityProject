@@ -35,7 +35,6 @@ public class PlayerController : MonoBehaviour {
             gameover = true;
             Time.timeScale = 0;
         }
-
     }
 
     /*void FixedUpdate()

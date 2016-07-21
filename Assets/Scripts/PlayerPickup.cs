@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using static PlayerTail;
 
 public class PlayerPickup : MonoBehaviour {
 
@@ -10,6 +11,7 @@ public class PlayerPickup : MonoBehaviour {
     public GameObject foodPickup_tiny;
     public GameObject magnetPickup;
     public bool MagnetPowerup_enabled;
+
     private float PickupRange_x;
     private float PickupRange_y;
     private GameObject Background;
@@ -31,63 +33,66 @@ public class PlayerPickup : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Pickup"))
+        switch (other.gameObject.tag)
         {
-            Vector2 location = new Vector2(Random.Range(-PickupRange_x, PickupRange_x), Random.Range(-PickupRange_y, PickupRange_y));
-            while (playerTail.checkPkupLocation(playerTail.TailList, location) == true)
-            {
-                location = new Vector2(Random.Range(-PickupRange_x, PickupRange_x), Random.Range(-PickupRange_y, PickupRange_y));
-                Debug.Log("new location trigger");
-            }
-            Instantiate(foodPickup, location, Quaternion.identity);
-            other.gameObject.SetActive(false);
-            Destroy(other.gameObject);
-            scoreCount += 5;
-            SetCountText();
+            case "Pickup":
+                SpawnPickup(foodPickup);
+                scoreCount += 5;
+                SetCountText();
+                break;
+            case "TinyPickup":
+                SpawnPickup(foodPickup_tiny);
+                scoreCount += 1;
+                SetCountText();
+                break;
+            case "Magnet":
+                StartCoroutine(MagnetPickup());
+                break;
         }
-        if (other.gameObject.CompareTag("TinyPickup"))
-        {
-            Vector2 location = new Vector2(Random.Range(-PickupRange_x, PickupRange_x), Random.Range(-PickupRange_y, PickupRange_y));
-            while (playerTail.checkPkupLocation(playerTail.TailList, location) == true)
-            {
-                location = new Vector2(Random.Range(-PickupRange_x, PickupRange_x), Random.Range(-PickupRange_y, PickupRange_y));
-                Debug.Log("new location trigger");
-            }
-            Instantiate(foodPickup_tiny, location, Quaternion.identity);
-            other.gameObject.SetActive(false);
-            Destroy(other.gameObject);
-            scoreCount += 1;
-            SetCountText();
-        }
-        if (other.gameObject.CompareTag("Magnet"))
-        {
-            MagnetPowerup_enabled = true;
-            Invoke("DeactivateMagnet", 10F);
-            Invoke("SpawnMagnet", 15F);
-            other.gameObject.SetActive(false);
-            Destroy(other.gameObject);
-        }
+        other.gameObject.SetActive(false);
+        Destroy(other.gameObject);
     }
 
-    void DeactivateMagnet()
+    IEnumerator MagnetPickup()
     {
+        MagnetPowerup_enabled = true;
+        yield return new WaitForSeconds(10F);
         MagnetPowerup_enabled = false;
+        yield return new WaitForSeconds(5F);
+        SpawnPickup(magnetPickup);
     }
 
-    void SpawnMagnet()
+    void SpawnPickup(GameObject pkup)
     {
         Vector2 location = new Vector2(Random.Range(-PickupRange_x, PickupRange_x), Random.Range(-PickupRange_y, PickupRange_y));
-        while (playerTail.checkPkupLocation(playerTail.TailList, location) == true)
+        while (checkPkupLocation(playerTail.TailList, location) == true)
         {
             location = new Vector2(Random.Range(-PickupRange_x, PickupRange_x), Random.Range(-PickupRange_y, PickupRange_y));
-            Debug.Log("new location trigger");
         }
-        Instantiate(magnetPickup, location, Quaternion.identity);
+        Instantiate(pkup, location, Quaternion.identity);
+    }
+
+    bool checkPkupLocation(LinkedList LL, Vector3 position)
+    {
+        if (Vector3.Magnitude(transform.position - position) <= 6)
+        {
+            return true;
+        }
+        bool flag = false;
+        Node current = LL.start;
+        while (current != LL.end)
+        {
+            if (Vector3.Magnitude(current.tail.transform.position - position) <= 4F)
+            {
+                return true;
+            }
+            current = current.next;
+        }
+        return flag;
     }
 
     void SetCountText()
     {
         score.text = "SCORE: " + scoreCount.ToString();
     }
-
 }

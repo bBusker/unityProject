@@ -126,23 +126,4 @@ public class PlayerTail : MonoBehaviour {
         LL.end = toAdd;
         LL.size++;
     }
-
-    public bool checkPkupLocation(LinkedList LL, Vector3 position)
-    {
-        if(Vector3.Magnitude(transform.position - position) <= 6)
-        {
-            return true;
-        }
-        bool flag = false;
-        Node current = LL.start;
-        while (current != LL.end)
-        {
-            if(Vector3.Magnitude(current.tail.transform.position - position) <= 4F)
-            {
-                return true;
-            }
-            current = current.next;
-        }
-        return flag;
-    }
 }
